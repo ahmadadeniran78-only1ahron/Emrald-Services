@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emrald Services</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="app-shell">
+    <header>
+        <div class="brand">EMRALD SERVICES</div>
+        <button class="theme-toggle" id="theme-toggle">
+            <i data-lucide="moon" style="width: 16px;"></i>
+        </button>
+    </header>
+
+    <div class="tabs">
+        <div class="tab active" id="tab-data" onclick="setMode('data')">Data</div>
+        <div class="tab" id="tab-airtime" onclick="setMode('airtime')">Airtime</div>
+    </div>
+
+    <div class="main-card">
+        <span class="section-label">1. Choose Network</span>
+        <div class="network-grid">
+            <div class="net-item mtn" onclick="selectNet('mtn', this)">MTN</div>
+            <div class="net-item glo" onclick="selectNet('glo', this)">GLO</div>
+            <div class="net-item airtel" onclick="selectNet('airtel', this)">AIRTEL</div>
+            <div class="net-item mobile" onclick="selectNet('9mobile', this)">9MOB</div>
+        </div>
+
+        <div id="data-group">
+            <span class="section-label">2. Select Plan</span>
+            <select id="plan-select" onchange="calculate()">
+                <option value="">Choose network first...</option>
+            </select>
+        </div>
+
+        <div id="airtime-group" style="display: none;">
+            <span class="section-label">2. Amount (₦)</span>
+            <input type="number" id="air-amt" class="input-field" placeholder="Enter Amount" oninput="calculate()">
+        </div>
+
+        <span class="section-label">3. Recipient Number</span>
+        <input type="tel" id="phone" class="input-field recipient-box" placeholder="0803 000 0000" maxlength="11">
+        
+        <div class="remember-container">
+            <input type="checkbox" id="remember-me">
+            <label for="remember-me">Remember this number</label>
+        </div>
+
+        <div class="summary-box">
+            <span class="sum-label">Total to Pay</span>
+            <span class="sum-val" id="total-view">₦0</span>
+        </div>
+
+        <button class="btn-buy" onclick="handleCheckout()">
+            <span>Order via WhatsApp</span>
+            <i data-lucide="send" style="width: 14px;"></i>
+        </button>
+
+        <div class="contact-footer">
+            <div class="phone-text">Phone: 08039122009 / 09035717189</div>
+            <div class="promo-text">ALL NETWORKS AT AFFORDABLE PRICES</div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
