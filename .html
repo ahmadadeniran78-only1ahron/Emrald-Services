@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emrald Services</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --primary: #00ffa3;
+            --primary-dark: #059669;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --accent-gradient: linear-gradient(135deg, #00ffa3 0%, #00d1ff 100%);
+        }
+
+        [data-theme="dark"] {
+            --bg: #020617;
+            --card: #0f172a;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * { box-sizing: border-box; transition: all 0.2s ease; }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+        }
+
+        .app-shell { width: 100%; max-width: 380px; padding: 12px; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .brand {
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .theme-toggle {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .tabs {
+            display: flex;
+            background: var(--border);
+            padding: 3px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 8px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 8px;
+            color: var(--muted);
+        }
+
+        .tab.active {
+            background: var(--card);
+            color: var(--primary-dark);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .main-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05);
+        }
+
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .network-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .net-item {
+            height: 42px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.6rem;
+            border: 2px solid transparent;
+            background: var(--bg);
+            opacity: 0.6;
+        }
+
+        .net-item.active {
+            opacity: 1;
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .mtn.active { background: #FFCC00; color: #000; }
+        .glo.active { background: #2ab200; color: #fff; }
+        .airtel.active { background: #ff0000; color: #fff; }
+        .mobile.active { background: #006633; color: #fff; }
+
+        select, .input-field {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            outline: none;
+        }
+
+        select:focus, .input-field:focus { border-color: var(--primary-dark); }
+
+        .recipient-box { height: 40px; margin-bottom: 8px; }
+
+        .remember-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .remember-container input { cursor: pointer; }
+        .remember-container label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, rgba(0, 255, 163, 0.05) 0%, rgba(0, 209, 255, 0.05) 100%);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sum-label { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
+        .sum-val { font-size: 1.1rem; font-weight: 800; color: var(--primary-dark); }
+
+        .btn-buy {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            background: var(--accent-gradient);
+            color: #002e1d;
+            border: none;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-buy:active { transform: scale(0.98); }
+
+        .contact-footer {
+            margin-top: 14px;
+            text-align: center;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .phone-text { font-size: 0.7rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        .promo-text { font-size: 0.6rem; color: var(--muted); font-weight: 600; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+    <header>
+        <div class="brand">EMRALD SERVICES</div>
+        <button class="theme-toggle" id="theme-toggle">
+            <i data-lucide="moon" style="width: 16px;"></i>
+        </button>
+    </header>
+
+    <div class="tabs">
+        <div class="tab active" id="tab-data" onclick="setMode('data')">Data</div>
+        <div class="tab" id="tab-airtime" onclick="setMode('airtime')">Airtime</div>
+    </div>
+
+    <div class="main-card">
+        <span class="section-label">1. Choose Network</span>
+        <div class="network-grid">
+            <div class="net-item mtn" onclick="selectNet('mtn', this)">MTN</div>
+            <div class="net-item glo" onclick="selectNet('glo', this)">GLO</div>
+            <div class="net-item airtel" onclick="selectNet('airtel', this)">AIRTEL</div>
+            <div class="net-item mobile" onclick="selectNet('9mobile', this)">9MOB</div>
+        </div>
+
+        <div id="data-group">
+            <span class="section-label">2. Select Plan</span>
+            <select id="plan-select" onchange="calculate()">
+                <option value="">Choose network first...</option>
+            </select>
+        </div>
+
+        <div id="airtime-group" style="display: none;">
+            <span class="section-label">2. Amount (₦)</span>
+            <input type="number" id="air-amt" class="input-field" placeholder="Enter Amount" oninput="calculate()">
+        </div>
+
+        <span class="section-label">3. Recipient Number</span>
+        <input type="tel" id="phone" class="input-field recipient-box" placeholder="0803 000 0000" maxlength="11">
+        
+        <div class="remember-container">
+            <input type="checkbox" id="remember-me">
+            <label for="remember-me">Remember this number</label>
+        </div>
+
+        <div class="summary-box">
+            <span class="sum-label">Total to Pay</span>
+            <span class="sum-val" id="total-view">₦0</span>
+        </div>
+
+        <button class="btn-buy" onclick="handleCheckout()">
+            <span>Order via WhatsApp</span>
+            <i data-lucide="send" style="width: 14px;"></i>
+        </button>
+
+        <div class="contact-footer">
+            <div class="phone-text">Phone: 08039122009 / 09035717189</div>
+            <div class="promo-text">ALL NETWORKS AT AFFORDABLE PRICES</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Data Plans Configuration
+    const PLANS = {
+        mtn: [{s:'500MB', p:500}, {s:'1GB', p:700}, {s:'2GB', p:1400}, {s:'3GB', p:2100}, {s:'5GB', p:3500}, {s:'10GB', p:7000}],
+        glo: [{s:'250MB', p:250}, {s:'1GB', p:470}, {s:'2GB', p:940}, {s:'3GB', p:1410}, {s:'5GB', p:2350}, {s:'10GB', p:4700}],
+        airtel: [{s:'500MB', p:500}, {s:'1GB', p:850}, {s:'2GB', p:1700}, {s:'3GB', p:2550}, {s:'5GB', p:4250}, {s:'10GB', p:8500}],
+        '9mobile': [{s:'500MB', p:170}, {s:'1GB', p:350}, {s:'2GB', p:650}, {s:'3GB', p:1000}, {s:'5GB', p:1800}, {s:'10GB', p:3500}]
+    };
+
+    let current = { mode: 'data', net: '', cost: 0 };
+
+    // Initialize: Check for saved data
+    window.onload = () => {
+        const savedPhone = localStorage.getItem('userPhone');
+        if (savedPhone) {
+            document.getElementById('phone').value = savedPhone;
+            document.getElementById('remember-me').checked = true;
+        }
+    };
+
+    function setMode(m) {
+        current.mode = m;
+        document.getElementById('tab-data').classList.toggle('active', m === 'data');
+        document.getElementById('tab-airtime').classList.toggle('active', m === 'airtime');
+        document.getElementById('data-group').style.display = m === 'data' ? 'block' : 'none';
+        document.getElementById('airtime-group').style.display = m === 'airtime' ? 'block' : 'none';
+        calculate();
+    }
+
+    function selectNet(n, el) {
+        current.net = n;
+        document.querySelectorAll('.net-item').forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
+        
+        const select = document.getElementById('plan-select');
+        select.innerHTML = PLANS[n].map(p => `<option value="${p.p}">${p.s} - ₦${p.p}</option>`).join('');
+        calculate();
+    }
+
+    function calculate() {
+        if (current.mode === 'data') {
+            current.cost = document.getElementById('plan-select').value || 0;
+        } else {
+            current.cost = document.getElementById('air-amt').value || 0;
+        }
+        document.getElementById('total-view').innerText = `₦${current.cost}`;
+    }
+
+    function handleCheckout() {
+        const num = document.getElementById('phone').value.trim();
+        const shouldRemember = document.getElementById('remember-me').checked;
+        
+        if(!current.net || !current.cost || num.length < 11 || isNaN(num)) {
+            return alert("Please select a network, plan/amount, and a valid 11-digit phone number!");
+        }
+
+        // Save or Remove phone number from storage
+        if (shouldRemember) {
+            localStorage.setItem('userPhone', num);
+        } else {
+            localStorage.removeItem('userPhone');
+        }
+        
+        const type = current.mode.toUpperCase();
+        const pkg = current.mode === 'data' 
+            ? document.getElementById('plan-select').options[document.getElementById('plan-select').selectedIndex].text 
+            : `₦${current.cost} Airtime`;
+        
+        const message = `*EMRALD ORDER*\n------------------\n*Type:* ${type}\n*Net:* ${current.net.toUpperCase()}\n*Plan:* ${pkg}\n*Num:* ${num}\n*Total:* ₦${current.cost}\n------------------\n_Hello, I want to pay for this._`;
+        
+        window.open(`https://wa.me/23409035717189?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    // Theme Switcher Logic
+    const themeBtn = document.getElementById('theme-toggle');
+    let isDark = false;
+    themeBtn.onclick = () => {
+        isDark = !isDark;
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        themeBtn.innerHTML = isDark 
+            ? '<i data-lucide="sun" style="width: 16px;"></i>' 
+            : '<i data-lucide="moon" style="width: 16px;"></i>';
+        lucide.createIcons();
+    };
+
+    lucide.createIcons();
+</script>
+
+</body>
+</html>
